@@ -1,12 +1,14 @@
 section{
   border: 2px solid black;
-  width: 200px;
-  height: 200px;
+  width: 500px;
+  height: 500px;
   display: flex;
 }
-.ball{
+div{
   background-color: black;
   position: relative;
-  width: 10px;
-  height: 10px;
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+  color: white;
 }
