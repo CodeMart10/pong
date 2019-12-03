@@ -6,6 +6,7 @@ section{
 }
 .ball{
   background-color: black;
+  position: relative;
   width: 10px;
   height: 10px;
 }
