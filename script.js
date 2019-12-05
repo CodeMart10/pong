@@ -1,5 +1,5 @@
 //Variables holding nodes
-let ballDiv = document.body.querySelector("div")
+let ballDiv = document.getElementById("ball")
 let paddle1 = document.getElementById('paddle1');
 let paddle2 = document.getElementById('paddle2');
 
@@ -9,12 +9,12 @@ const ball = {
   width: 100,
   xDiff: 3,
   yDiff: 2,
-  speed: 1,
+  speed: .01,
 };
 
 //Ball and paddles starting position
-let x = 2;
-let y = 20;
+let x = 700;
+let y = 350;
 let move = 100;
 let move2 = 100;
 
@@ -61,7 +61,7 @@ window.addEventListener("keydown", event => {
 
 //Down for left paddle
   if(event.key == "s") {
-    if(move == 800) {
+    if(move == 700) {
       move -= 25;
     }
     move += 25;
@@ -73,15 +73,15 @@ window.addEventListener("keydown", event => {
   if(event.key == "ArrowUp") {
     if(move2 == 0) {
        move2 += 25;
-     }
-     move2 -= 25;
-     paddle2.style.top = move2 + "px";
-     array[1] = move2;
+    }
+    move2 -= 25;
+    paddle2.style.top = move2 + "px";
+    array[1] = move2;
   }
 
 //Down for right paddle
   if(event.key == "ArrowDown") {
-    if(move2 == 800) {
+    if(move2 == 700) {
       move2 -= 25;
     }
     move2 = move2 + 25;
