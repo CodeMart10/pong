@@ -2,11 +2,13 @@
 let ballDiv = document.getElementById("ball")
 let paddle1 = document.getElementById('paddle1');
 let paddle2 = document.getElementById('paddle2');
-
+let body = document.querySelector("section");
+let ballCoordinate = ballDiv.getBoundingClientRect();
+let bodyCoordinates = body.getBoundingClientRect();
 //Ball properties
 const ball = {
-  height: 100,
-  width: 100,
+  height: ballCoordinate.height,
+  width: ballCoordinate.width,
   xDiff: 3,
   yDiff: 2,
   speed: .01,
@@ -19,7 +21,6 @@ let move = 100;
 let move2 = 100;
 
 //Ball and paddles live coordinates
-let ballCoordinate = ballDiv.getBoundingClientRect();
 let paddle1Coordinates = paddle1.getBoundingClientRect();
 let paddle2Coordinates = paddle2.getBoundingClientRect();
 
@@ -28,21 +29,46 @@ let array = [];
 
 //Clock
 const time = setInterval(() => {
-
   //y-axis
   ballDiv.style.top = y + "px";
-  if (y >= 800 || y <= 0){
+  if (y >= bodyCoordinates.height - ballCoordinate.height || y <= 0){
     ball.yDiff *= -1;
   }
   y += ball.yDiff;
 
   //x-axis
   ballDiv.style.left = x + "px";
-  if (x >= 1500 || x <= 0){
+  if (x >= bodyCoordinates.width - ballCoordinate.width || x <= 0){
     ball.xDiff *= -1;
   }
   x += ball.xDiff;
 
+  if(paddle1Coordinates.x < x + ballCoordinate.width) {
+      if( paddle1Coordinates.x + paddle1Coordinates.width > x) {
+        if(array[0] < ballCoordinate.height + y) {
+          if(array[0] + paddle1Coordinates.y > y) {
+            console.log("player one's point!");
+             ball.xDiff *= -1;
+          }
+
+        }
+
+      }
+  }
+  if(paddle2Coordinates.x < x + ballCoordinate.width) {
+      if(paddle2Coordinates.x + paddle2Coordinates.width > x) {
+        if(array[0] < ballCoordinate.height + y) {
+          if(array[0] + paddle2Coordinates.y > y) {
+            console.log("Player two's point!");
+             ball.xDiff *= -1;
+          }
+
+        }
+
+      }
+  }
+
+  x += ball.xDiff;
 }, ball.speed);
 
 
@@ -61,7 +87,7 @@ window.addEventListener("keydown", event => {
 
 //Down for left paddle
   if(event.key == "s") {
-    if(move == 700) {
+    if(move == bodyCoordinates.height - paddle1Coordinates.height) {
       move -= 25;
     }
     move += 25;
@@ -81,7 +107,7 @@ window.addEventListener("keydown", event => {
 
 //Down for right paddle
   if(event.key == "ArrowDown") {
-    if(move2 == 700) {
+    if(move2 == bodyCoordinates.height - paddle2Coordinates.height) {
       move2 -= 25;
     }
     move2 = move2 + 25;
@@ -89,3 +115,6 @@ window.addEventListener("keydown", event => {
     array[1] = move2;
   }
 });
+console.log(paddle2Coordinates.x);
+console.log(bodyCoordinates.width);
+console.log(bodyCoordinates.height);
