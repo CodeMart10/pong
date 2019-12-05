@@ -9,5 +9,12 @@ div{
   position: relative;
   width: 100px;
   height: 100px;
-  color: white;
+}
+#paddle1 {
+  top: 100px;
+  left: -200px;
+}
+#paddle2 {
+  top: 100px;
+  left: 1400px;
 }
