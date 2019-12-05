@@ -2,11 +2,13 @@
 let ballDiv = document.getElementById("ball")
 let paddle1 = document.getElementById('paddle1');
 let paddle2 = document.getElementById('paddle2');
-
+let body = document.querySelector("section");
+let ballCoordinates = ballDiv.getBoundingClientRect();
+let bodyCoordinates = body.getBoundingClientRect();
 //Ball properties
 const ball = {
-  height: 50,
-  width: 50,
+  height: ballCoordinates.height,
+  width: ballCoordinates.width,
   xDiff: 1,
   yDiff: 1,
   speed: 20,
@@ -22,7 +24,7 @@ let move2 = 100;
 
 
 //Ball and paddles live coordinates
-let ballCoordinate = ballDiv.getBoundingClientRect();
+
 let paddle1Coordinates = paddle1.getBoundingClientRect();
 let paddle2Coordinates = paddle2.getBoundingClientRect();
 
@@ -39,12 +41,10 @@ let pads = {
   speed1: 25,
   speed2: 25
 }
-console.log(paddle1Coordinates)
-console.log(paddle2Coordinates)
 
 const border = {
-  height: 300,
-  width: 600
+  height: bodyCoordinates.height - 20,
+  width: bodyCoordinates.width - 20
 }
 
 //Clock
