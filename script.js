@@ -5,18 +5,21 @@ let paddle2 = document.getElementById('paddle2');
 
 //Ball properties
 const ball = {
-  height: 100,
-  width: 100,
-  xDiff: 3,
-  yDiff: 2,
-  speed: .01,
+  height: 50,
+  width: 50,
+  xDiff: 1,
+  yDiff: 1,
+  speed: 20,
 };
 
+
 //Ball and paddles starting position
-let x = 700;
-let y = 350;
+let x = 400;
+let y = 20;
 let move = 100;
 let move2 = 100;
+
+
 
 //Ball and paddles live coordinates
 let ballCoordinate = ballDiv.getBoundingClientRect();
@@ -24,24 +27,52 @@ let paddle1Coordinates = paddle1.getBoundingClientRect();
 let paddle2Coordinates = paddle2.getBoundingClientRect();
 
 //array for Paddles live coordinates
-let array = [];
+let array = [110, 110];
+let pad1 = array[0];
+let pad2 = array[1];
+
+let pads = {
+  x1: 0,
+  x2: 600,
+  height: 50,
+  width: 10,
+  speed1: 25,
+  speed2: 25
+}
+console.log(paddle1Coordinates)
+console.log(paddle2Coordinates)
+
+const border = {
+  height: 300,
+  width: 600
+}
 
 //Clock
 const time = setInterval(() => {
 
   //y-axis
   ballDiv.style.top = y + "px";
-  if (y >= 800 || y <= 0){
+  if (y + ball.height >= border.height || y <= 0){
     ball.yDiff *= -1;
   }
-  y += ball.yDiff;
 
   //x-axis
   ballDiv.style.left = x + "px";
-  if (x >= 1500 || x <= 0){
+  if (x + ball.width >= border.width || x <= 0){
     ball.xDiff *= -1;
   }
+
+
+  if ((pads.x1 + pads.width > x) &&
+      (pad1 < y + ball.height) &&
+      (pad1 + pads.height > y)){
+    ball.xDiff *= -1;
+    ballDiv.style.backgroundColor = "red"
+  }
+
+  y += ball.yDiff;
   x += ball.xDiff;
+
 
 }, ball.speed);
 
@@ -52,19 +83,19 @@ window.addEventListener("keydown", event => {
 //Up for left paddle
   if(event.key == "w") {
     if(move == 0) {
-      move += 25;
+      move += pads.speed1;
     }
-    move = move - 25;
+    move = move - pads.speed1;
     paddle1.style.top = move + "px";
     array[0] = move;
   }
 
 //Down for left paddle
   if(event.key == "s") {
-    if(move == 700) {
-      move -= 25;
+    if(move == border.height - pads.height) {
+      move -= pads.speed1;
     }
-    move += 25;
+    move += pads.speed1;
     paddle1.style.top = move + "px";
     array[0] = move;
   }
@@ -72,19 +103,19 @@ window.addEventListener("keydown", event => {
 //Up for right paddle
   if(event.key == "ArrowUp") {
     if(move2 == 0) {
-       move2 += 25;
+       move2 += pads.speed2;
     }
-    move2 -= 25;
+    move2 -= pads.speed2;
     paddle2.style.top = move2 + "px";
     array[1] = move2;
   }
 
 //Down for right paddle
   if(event.key == "ArrowDown") {
-    if(move2 == 700) {
-      move2 -= 25;
+    if(move2 == border.height - pads.height) {
+      move2 -= pads.speed2;
     }
-    move2 = move2 + 25;
+    move2 = move2 + pads.speed2;
     paddle2.style.top = move2 + "px";
     array[1] = move2;
   }
