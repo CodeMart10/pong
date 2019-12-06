@@ -1,50 +1,37 @@
 //Variables holding nodes
-let ballDiv = document.getElementById("ball")
+let ballDiv = document.getElementById("ball");
 let paddle1 = document.getElementById('paddle1');
 let paddle2 = document.getElementById('paddle2');
 let body = document.querySelector("section");
-let ballCoordinates = ballDiv.getBoundingClientRect();
 let bodyCoordinates = body.getBoundingClientRect();
 //Ball properties
 const ball = {
-  height: ballCoordinates.height,
+  height: 50,
   width: 50,
   xDiff: 0.5,
   yDiff: 0.5,
-  speed: 20,
+  speed: 1
 };
-
-
-//Ball and paddles starting position
-let x = 400;
-let y = 20;
-let move = 100;
-let move2 = 100;
-
-
-
-//Ball and paddles live coordinates
-
-let paddle1Coordinates = paddle1.getBoundingClientRect();
-let paddle2Coordinates = paddle2.getBoundingClientRect();
-
-//array for Paddles live coordinates
-let array = [110, 110];
-let pad1 = array[0];
-let pad2 = array[1];
 
 let pads = {
   x1: 0,
-  x2: 600,
+  x2: 590,
   height: 50,
   width: 10,
   speed1: 25,
   speed2: 25
 }
 
+
+//Ball and paddles starting position
+let x = 200;
+let y = 20;
+let move = 0;
+let move2 = 0;
+
 const border = {
-  height: bodyCoordinates.height - 20,
-  width: bodyCoordinates.width - 20
+  height: 300,
+  width: 600
 }
 
 //Clock
@@ -53,6 +40,8 @@ const time = setInterval(() => {
   ballDiv.style.top = y + "px";
   if (y + ball.height >= border.height || y <= 0){
     ball.yDiff *= -1;
+
+
   }
 
   //x-axis
@@ -61,23 +50,19 @@ const time = setInterval(() => {
     ball.xDiff *= -1;
   }
 
-  if(array[1] < ballCoordinates.height + y) {
-    console.log("win");
-    if(array[1] + paddle2Coordinates.height > y) {
-      if(608 < x + ball.width) {
+  if (move2 < y + ball.height){
+    if(move2 + pads.height >= y){
+      if(x + ball.width >= pads.x2){
         ball.xDiff *= -1;
       }
     }
   }
   //Paddle1
-  if(paddle1Coordinates.x + paddle1Coordinates.width > x) {
-    console.log("win");
-    if(paddle1Coordinates.width >= x) {
-      if(array[0] < ballCoordinates.height + y) {
-        if(array[0] + paddle1Coordinates.height > y) {
+  if(pads.x1 + pads.width >= x) {
+    if (move < y + ball.height){
+      if(move + pads.height >= y) {
           ball.xDiff *= -1;
         }
-      }
     }
   }
 y += ball.yDiff;
@@ -93,9 +78,8 @@ window.addEventListener("keydown", event => {
     if(move == 0) {
       move += pads.speed1;
     }
-    move = move - pads.speed1;
+    move -= pads.speed1;
     paddle1.style.top = move + "px";
-    array[0] = move;
   }
 
 //Down for left paddle
@@ -105,7 +89,6 @@ window.addEventListener("keydown", event => {
     }
     move += pads.speed1;
     paddle1.style.top = move + "px";
-    array[0] = move;
   }
 
 //Up for right paddle
@@ -115,7 +98,6 @@ window.addEventListener("keydown", event => {
     }
     move2 -= pads.speed2;
     paddle2.style.top = move2 + "px";
-    array[1] = move2;
   }
 
 //Down for right paddle
@@ -126,10 +108,5 @@ window.addEventListener("keydown", event => {
     }
     move2 = move2 + pads.speed2;
     paddle2.style.top = move2 + "px";
-    array[1] = move2;
   }
 });
-console.log(paddle1Coordinates.x);
-console.log(paddle2Coordinates.x);
-console.log(ballCoordinates.width);
-console.log(bodyCoordinates.height);
