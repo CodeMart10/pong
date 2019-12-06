@@ -8,9 +8,9 @@ let bodyCoordinates = body.getBoundingClientRect();
 //Ball properties
 const ball = {
   height: ballCoordinates.height,
-  width: ballCoordinates.width,
-  xDiff: 1,
-  yDiff: 1,
+  width: 50,
+  xDiff: 0.5,
+  yDiff: 0.5,
   speed: 20,
 };
 
@@ -61,18 +61,27 @@ const time = setInterval(() => {
     ball.xDiff *= -1;
   }
 
-
-  if ((pads.x1 + pads.width > x) &&
-      (pad1 < y + ball.height) &&
-      (pad1 + pads.height > y)){
-    ball.xDiff *= -1;
-    ballDiv.style.backgroundColor = "red"
+  if(array[1] < ballCoordinates.height + y) {
+    console.log("win");
+    if(array[1] + paddle2Coordinates.height > y) {
+      if(608 < x + ball.width) {
+        ball.xDiff *= -1;
+      }
+    }
   }
-
-  y += ball.yDiff;
-  x += ball.xDiff;
-
-
+  //Paddle1
+  if(paddle1Coordinates.x + paddle1Coordinates.width > x) {
+    console.log("win");
+    if(paddle1Coordinates.width >= x) {
+      if(array[0] < ballCoordinates.height + y) {
+        if(array[0] + paddle1Coordinates.height > y) {
+          ball.xDiff *= -1;
+        }
+      }
+    }
+  }
+y += ball.yDiff;
+x += ball.xDiff;
 }, ball.speed);
 
 
@@ -120,6 +129,7 @@ window.addEventListener("keydown", event => {
     array[1] = move2;
   }
 });
+console.log(paddle1Coordinates.x);
 console.log(paddle2Coordinates.x);
-console.log(bodyCoordinates.width);
+console.log(ballCoordinates.width);
 console.log(bodyCoordinates.height);
