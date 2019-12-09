@@ -9,35 +9,38 @@ const ball = {
   height: 15,
   width: 15,
   xDiff: 1,
-  yDiff: .5,
-  speed: 1
+  yDiff: 1
 };
+
+let speed = 20;
 
 //Paddles propeties
 let pads = {
-  x1: 0,
-  x2: 770,
+  x1: 5,
+  x2: 490,
   height: 100,
-  width: 30,
+  width: 5,
   speed1: 15,
   speed2: 15
-}
+};
 
 //Border
 const border = {
   height: 400,
-  width: 800
-}
+  width: 500
+};
 
 //Ball and paddles starting/live position
 let x = 200;
 let y = 20;
 let padY1 = 0;
-let padY2 = 0;
+let padY2 = 300;
 
 
 //Clock
-const time = setInterval(() => {
+let time = setInterval(movement, speed);
+
+function movement(){
 
   //y-axis
   ballDiv.style.top = y + "px";
@@ -48,7 +51,9 @@ const time = setInterval(() => {
   //x-axis
   ballDiv.style.left = x + "px";
   if (x + ball.width >= border.width || x <= 0){
-      ball.xDiff *= -1;
+      ball.xDiff *= 0;
+      ball.yDiff *= 0;
+      location.reload()
   }
 
   //Paddle 2
@@ -60,13 +65,28 @@ const time = setInterval(() => {
         }
 
         else if (x + ball.width == pads.x2){
+          ballDiv.style.backgroundColor = "red"
           ball.xDiff *= -1;
+          clearInterval(time);
+          time = setInterval(movement, speed -= 5)
+
+          if (y + (ball.height/2) < padY2 + (pads.height/2) &&
+             ball.yDiff > 0){
+                ball.yDiff *= -1;
+                console.log(ball.yDiff)
+              }
+
+          if (y + (ball.height/2) > padY2 + (pads.height/2) &&
+              ball.yDiff < 0){
+                ball.yDiff *= -1;
+                console.log(ball.yDiff)
+              }
         }
   }
 
   //Paddle1
   if ((padY1 < y + ball.height) &&
-  (padY1 + pads.height >= y)){
+      (padY1 + pads.height >= y)){
 
         if (pads.x1 + pads.width > x){
               ball.yDiff *= -1;
@@ -74,14 +94,29 @@ const time = setInterval(() => {
 
         else if (pads.x1 + pads.width == x){
               ball.xDiff *= -1;
+              ballDiv.style.backgroundColor = "blue"
+              clearInterval(time);
+              time = setInterval(movement, speed -= 5)
+
+              if (y + (ball.height/2) < padY1 + (pads.height/2) &&
+                  ball.yDiff > 0){
+                    ball.yDiff *= -1;
+                  }
+
+              if (y + (ball.height/2) > padY1 + (pads.height/2) &&
+                  ball.yDiff < 0){
+                    ball.yDiff *= -1;
+                  }
         }
- }
 
-//ball slope
-y += ball.yDiff;
-x += ball.xDiff;
+  }
 
-}, ball.speed);
+  //ball slope
+  x += ball.xDiff;
+  y += ball.yDiff;
+  console.log(speed)
+
+};
 
 //Keys pressed
 window.addEventListener("keydown", event => {
@@ -124,3 +159,5 @@ window.addEventListener("keydown", event => {
     paddle2.style.top = padY2 + "px";
   }
 });
+
+const test = setInterval(() => { console.log('hello')});
