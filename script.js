@@ -6,8 +6,8 @@ let body = document.querySelector("section");
 
 //Ball properties
 const ball = {
-  height: 7,
-  width: 7,
+  height: 15,
+  width: 15,
   xDiff: 1,
   yDiff: .5,
   speed: 1
@@ -16,17 +16,17 @@ const ball = {
 //Paddles propeties
 let pads = {
   x1: 0,
-  x2: 590,
-  height: 25,
-  width: 5,
+  x2: 770,
+  height: 100,
+  width: 30,
   speed1: 15,
   speed2: 15
 }
 
 //Border
 const border = {
-  height: 200,
-  width: 400
+  height: 400,
+  width: 800
 }
 
 //Ball and paddles starting/live position
@@ -53,17 +53,29 @@ const time = setInterval(() => {
 
   //Paddle 2
   if ((padY2 < y + ball.height) &&
-      (padY2 + pads.height >= y) &&
-      (x + ball.width >= pads.x2)){
-        ball.xDiff *= -1;
+      (padY2 + pads.height >= y)) {
+
+        if (x + ball.width > pads.x2){
+          ball.yDiff *= -1;
+        }
+
+        else if (x + ball.width == pads.x2){
+          ball.xDiff *= -1;
+        }
   }
 
   //Paddle1
-  if((pads.x1 + pads.width >= x) &&
-     (padY1 < y + ball.height) &&
-     (padY1 + pads.height >= y)){
-          ball.xDiff *= -1;
-  }
+  if ((padY1 < y + ball.height) &&
+  (padY1 + pads.height >= y)){
+
+        if (pads.x1 + pads.width > x){
+              ball.yDiff *= -1;
+        }
+
+        else if (pads.x1 + pads.width == x){
+              ball.xDiff *= -1;
+        }
+ }
 
 //ball slope
 y += ball.yDiff;
