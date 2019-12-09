@@ -3,9 +3,15 @@
 }
 /** Border **/
 section{
+<<<<<<< HEAD
   border: 10px solid black;
   width: 800px;
   height: 300px;
+=======
+  border: 5px solid black;
+  width: 800px;
+  height: 400px;
+>>>>>>> 11d0437110922ff7b89ffb50c196fb5cff0666bd
   position: relative;
 }
 
@@ -15,16 +21,16 @@ div{
   position: absolute;
   top: 20px;
   left: 200px;
-  width: 50px;
-  height: 50px;
+  width: 15px;
+  height: 15px;
 }
 
 
 /** Paddles **/
 #paddle1, #paddle2{
   position: absolute;
-  height: 50px;
-  width: 10px;
+  height: 100px;
+  width: 30px;
 }
 
 #paddle1 {
@@ -37,6 +43,10 @@ div{
   left: 740px;
 =======
   top: 0px;
+<<<<<<< HEAD
   left: 590px;
 >>>>>>> e1de1e90ea058bbbaafbe9e4c48d6c632bce881c
+=======
+  left: 770px;
+>>>>>>> 11d0437110922ff7b89ffb50c196fb5cff0666bd
 }

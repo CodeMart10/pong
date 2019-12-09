@@ -3,128 +3,125 @@ let ballDiv = document.getElementById("ball")
 let paddle1 = document.getElementById('paddle1');
 let paddle2 = document.getElementById('paddle2');
 let body = document.querySelector("section");
-let ballCoordinates = ballDiv.getBoundingClientRect();
-let bodyCoordinates = body.getBoundingClientRect();
-let bodyoffSet = body.offsetParent;
+
 //Ball properties
 const ball = {
-  height: ballCoordinates.height,
-  width: 50,
-  xDiff: 0.5,
-  yDiff: 0.5,
-  speed: .5,
+  height: 15,
+  width: 15,
+  xDiff: 1,
+  yDiff: .5,
+  speed: 1
 };
 
-
-//Ball and paddles starting position
-let x = 400;
-let y = 20;
-let move = 100;
-let move2 = 100;
-
-
-//Ball and paddles live coordinates
-
-let paddle1Coordinates = paddle1.getBoundingClientRect();
-let paddle2Coordinates = paddle2.getBoundingClientRect();
-//array for Paddles live coordinates
-let array = [110, 110];
-let pad1 = array[0];
-let pad2 = array[1];
-
+//Paddles propeties
 let pads = {
   x1: 0,
-  x2: 600,
-  height: 50,
-  width: 10,
-  speed1: 25,
-  speed2: 25
+  x2: 770,
+  height: 100,
+  width: 30,
+  speed1: 15,
+  speed2: 15
 }
 
+//Border
 const border = {
-  height: bodyCoordinates.height - 20,
-  width: bodyCoordinates.width - 20
+  height: 400,
+  width: 800
 }
+
+//Ball and paddles starting/live position
+let x = 200;
+let y = 20;
+let padY1 = 0;
+let padY2 = 0;
+
 
 //Clock
 const time = setInterval(() => {
+
   //y-axis
   ballDiv.style.top = y + "px";
   if (y + ball.height >= border.height || y <= 0){
-    ball.yDiff *= -1;
+      ball.yDiff *= -1;
   }
 
   //x-axis
   ballDiv.style.left = x + "px";
   if (x + ball.width >= border.width || x <= 0){
-    ball.xDiff *= -1;
-  }
-//paddle2
-  if(array[1] < ballCoordinates.height + y) {
-    if(array[1] + paddle2Coordinates.height > y) {
-      if(x + ball.width + paddle2Coordinates.width >= border.width ) {
       ball.xDiff *= -1;
-      console.log(ballCoordinates.x);
-    }
-    }
   }
-  //Paddle1
-  if(paddle1Coordinates.x + paddle1Coordinates.width > x) {
-    if(paddle1Coordinates.width >= x) {
-      if(array[0] < ballCoordinates.height + y) {
-        if(array[0] + paddle1Coordinates.height > y) {
+
+  //Paddle 2
+  if ((padY2 < y + ball.height) &&
+      (padY2 + pads.height >= y)) {
+
+        if (x + ball.width > pads.x2){
+          ball.yDiff *= -1;
+        }
+
+        else if (x + ball.width == pads.x2){
           ball.xDiff *= -1;
           console.log(ballCoordinates.x);
         }
-      }
-    }
   }
+
+  //Paddle1
+  if ((padY1 < y + ball.height) &&
+  (padY1 + pads.height >= y)){
+
+        if (pads.x1 + pads.width > x){
+              ball.yDiff *= -1;
+        }
+
+        else if (pads.x1 + pads.width == x){
+              ball.xDiff *= -1;
+        }
+ }
+
+//ball slope
 y += ball.yDiff;
 x += ball.xDiff;
+
 }, ball.speed);
 
-
+//Keys pressed
 window.addEventListener("keydown", event => {
   event.preventDefault();
 
-//Up for left paddle
+//Up for paddle 1
   if(event.key == "w") {
-    if(move == 0) {
-      move += pads.speed1;
+    if(padY1 <= 0) {
+      padY1 += pads.speed1;
     }
-    move = move - pads.speed1;
-    paddle1.style.top = move + "px";
-    array[0] = move;
+    padY1 -= pads.speed1;
+    paddle1.style.top = padY1 + "px";
   }
 
-//Down for left paddle
+//Down for paddle 1
   if(event.key == "s") {
-    if(move == border.height - pads.height) {
-      move -= pads.speed1;
+    if(padY1 >= border.height - pads.height) {
+      padY1 -= pads.speed1;
     }
-    move += pads.speed1;
-    paddle1.style.top = move + "px";
-    array[0] = move;
+    padY1 += pads.speed1;
+    paddle1.style.top = padY1 + "px";
   }
 
-//Up for right paddle
+//Up for paddle 2
   if(event.key == "ArrowUp") {
-    if(move2 == 0) {
-       move2 += pads.speed2;
+    if(padY2 <= 0) {
+       padY2 += pads.speed2;
     }
-    move2 -= pads.speed2;
-    paddle2.style.top = move2 + "px";
-    array[1] = move2;
+    padY2 -= pads.speed2;
+    paddle2.style.top = padY2 + "px";
   }
 
-//Down for right paddle
+//Down for paddle 2
   if(event.key == "ArrowDown") {
 
-    if(move2 == border.height - pads.height) {
-      move2 -= pads.speed2;
+    if(padY2 + pads.height >= border.height) {
+      padY2 -= pads.speed2;
     }
-    move2 = move2 + pads.speed2;
-    paddle2.style.top = move2 + "px";
-    array[1] = move2;
+    padY2 = padY2 + pads.speed2;
+    paddle2.style.top = padY2 + "px";
   }
 });
