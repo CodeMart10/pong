@@ -4,7 +4,7 @@
 /** Border **/
 section{
   border: 10px solid black;
-  width: 600px;
+  width: 800px;
   height: 300px;
   display: flex;
 }
@@ -31,5 +31,5 @@ div{
 }
 #paddle2 {
   top: 100px;
-  left: 540px;
+  left: 740px;
 }

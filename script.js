@@ -5,13 +5,14 @@ let paddle2 = document.getElementById('paddle2');
 let body = document.querySelector("section");
 let ballCoordinates = ballDiv.getBoundingClientRect();
 let bodyCoordinates = body.getBoundingClientRect();
+let bodyoffSet = body.offsetParent;
 //Ball properties
 const ball = {
   height: ballCoordinates.height,
   width: 50,
   xDiff: 0.5,
   yDiff: 0.5,
-  speed: 20,
+  speed: .5,
 };
 
 
@@ -22,12 +23,10 @@ let move = 100;
 let move2 = 100;
 
 
-
 //Ball and paddles live coordinates
 
 let paddle1Coordinates = paddle1.getBoundingClientRect();
 let paddle2Coordinates = paddle2.getBoundingClientRect();
-
 //array for Paddles live coordinates
 let array = [110, 110];
 let pad1 = array[0];
@@ -60,22 +59,22 @@ const time = setInterval(() => {
   if (x + ball.width >= border.width || x <= 0){
     ball.xDiff *= -1;
   }
-
+//paddle2
   if(array[1] < ballCoordinates.height + y) {
-    console.log("win");
     if(array[1] + paddle2Coordinates.height > y) {
-      if(608 < x + ball.width) {
-        ball.xDiff *= -1;
-      }
+      if(x + ball.width + paddle2Coordinates.width >= border.width ) {
+      ball.xDiff *= -1;
+      console.log(ballCoordinates.x);
+    }
     }
   }
   //Paddle1
   if(paddle1Coordinates.x + paddle1Coordinates.width > x) {
-    console.log("win");
     if(paddle1Coordinates.width >= x) {
       if(array[0] < ballCoordinates.height + y) {
         if(array[0] + paddle1Coordinates.height > y) {
           ball.xDiff *= -1;
+          console.log(ballCoordinates.x);
         }
       }
     }
@@ -129,7 +128,4 @@ window.addEventListener("keydown", event => {
     array[1] = move2;
   }
 });
-console.log(paddle1Coordinates.x);
-console.log(paddle2Coordinates.x);
-console.log(ballCoordinates.width);
-console.log(bodyCoordinates.height);
+console.log(body.style.left);
