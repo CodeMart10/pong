@@ -7,7 +7,7 @@ section{
   border-bottom: 5px solid black;
   border-right: 5px solid red;
   border-left: 5px solid blue;
-  width: 500px;
+  width: 600px;
   height: 400px;
   position: relative;
 }
@@ -36,7 +36,7 @@ div{
 }
 #paddle2 {
   top: 300px;
-  left: 490px;
+  left: 590px;
 }
 .button{
   position: absolute;

@@ -13,16 +13,16 @@ button[0].onclick = function () {
 const ball = {
   height: 15,
   width: 15,
-  xDiff: 1,
-  yDiff: 1
+  xDiff: 5,
+  yDiff: 5
 };
 
-let speed = 15;
+let speed = 30;
 
 //Paddles propeties
 let pads = {
   x1: 5,
-  x2: 490,
+  x2: 590,
   height: 100,
   width: 5,
   speed1: 15,
@@ -32,12 +32,12 @@ let pads = {
 //Border
 const border = {
   height: 400,
-  width: 500
+  width: 600
 };
 
 //Ball and paddles starting/live position
-let x = Math.floor(Math.random()*border.width);
-let y = border.height/2 + ball.height;
+let x = border.width/2 + ball.width/2;
+let y = border.height/2 + ball.height/2;
 let padY1 = 0;
 let padY2 = 300;
 
@@ -57,33 +57,46 @@ function movement(){
 
   //x-axis
   ballDiv.style.left = x + "px";
-  if (x + ball.width >= border.width || x <= 0){
-      ball.xDiff *= -1;
-      if(x == border.width - ball.width) {
-        y = 200;
-        x = 407;
+
+      if(x + ball.width >= border.width) {
+
+        y = border.height/2 + ball.height/2;
+        x = border.width/2 + ball.width/2;
+
+        clearInterval(time);
+        time = setInterval(movement, speed = 30);
+
         points += 1;
-        stringPoint = points.toString();
-        console.log(stringPoint);
+
         if(points == 1) {
-          paragraph.innerHTML = "Player 1 : " + stringPoint;
-        } else if(points !== 1) {
-          paragraph.firstChild.remove();
-          paragraph.innerHTML = "Player 1 :" + " " + stringPoint;
+          paragraph.innerHTML = "Player 1 : " + points;
         }
-      } else if(x == 0) {
-        y = 200;
-        x = 407;
-        points2 = points2 + 1;
-        console.log("score player one");
-        if(points2 == 1) {
-          paragraphs[0].innerHTML = "Player 2 : " + stringPoint;
-        } else if(points2 !== 1) {
-          paragraphs[0].firstChild.remove();
-          paragraphs[0].innerHTML = "Player 2 :" + " " + stringPoint;
+
+        if(points !== 1) {
+          paragraph.firstChild.remove();
+          paragraph.innerHTML = "Player 1 : " + points;
         }
       }
-  }
+
+       if(x <= 0) {
+
+         y = border.height/2 + ball.height/2;
+         x = border.width/2 + ball.width/2;
+
+        clearInterval(time);
+        time = setInterval(movement, speed = 30)
+
+        points2 = points2 + 1;
+
+        if(points2 == 1) {
+          paragraphs[0].innerHTML = "Player 2 : " + points2;
+        }
+
+        if(points2 !== 1) {
+          paragraphs[0].firstChild.remove();
+          paragraphs[0].innerHTML = "Player 2 : "  + points2;
+        }
+      }
 
   //Paddle 2
   if ((padY2 < y + ball.height) &&
@@ -93,11 +106,11 @@ function movement(){
           ball.yDiff *= -1;
         }
 
-        else if (x + ball.width == pads.x2){
+        if (x + ball.width >= pads.x2){
           ballDiv.style.backgroundColor = "red"
           ball.xDiff *= -1;
           clearInterval(time);
-          time = setInterval(movement, speed -= 5)
+          time = setInterval(movement, speed -= 1)
 
           if (y + (ball.height/2) < padY2 + (pads.height/2) &&
              ball.yDiff > 0){
@@ -121,11 +134,11 @@ function movement(){
               ball.yDiff *= -1;
         }
 
-        else if (pads.x1 + pads.width == x){
+        if (pads.x1 + pads.width >= x){
               ball.xDiff *= -1;
               ballDiv.style.backgroundColor = "blue"
               clearInterval(time);
-              time = setInterval(movement, speed -= 5)
+              time = setInterval(movement, speed -= 1)
 
               if (y + (ball.height/2) < padY1 + (pads.height/2) &&
                   ball.yDiff > 0){
