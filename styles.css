@@ -20,7 +20,6 @@ section{
   left: 300px;
   width: 15px;
   height: 15px;
-
 }
 
 
@@ -30,7 +29,7 @@ section{
   position: absolute;
   height: 100px;
   width: 5px;
-  transition: top 0.2s, left 0.2s;
+  transition: top 300ms, left 300ms;
 }
 
 #paddle1 {

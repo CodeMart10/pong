@@ -78,7 +78,7 @@ let decider = Math.floor(Math.random()*2);
 console.log(decider);
 if(decider = 1) {
   let powerUps = document.createElement("div");
-  powerUps.className = "powerUps";
+  powerups.className
   body.appendChild(powerUps);
   decider = 0;
   console.log(decider);
@@ -212,33 +212,27 @@ window.addEventListener("keydown", event => {
   if(event.key == "w") {
     if(padY1 <= 0) {
       padY1 += pads.speed1;
-      console.log(padY1);
     }
     padY1 -= pads.speed1;
     paddle1.style.top = padY1 + "px";
-    console.log(padY1);
   }
 
 //Down for paddle 1
   if(event.key == "s") {
     if(padY1 >= border.height - pads.height) {
       padY1 -= pads.speed1;
-      console.log(padY1);
     }
     padY1 += pads.speed1;
     paddle1.style.top = padY1 + "px";
-    console.log(padY1);
   }
 
 //Up for paddle 2
   if(event.key == "ArrowUp") {
     if(padY2 <= 0) {
        padY2 += pads.speed2;
-       console.log(padY2);
     }
     padY2 -= pads.speed2;
     paddle2.style.top = padY2 + "px";
-    console.log(padY2);
   }
 
 //Down for paddle 2
@@ -246,10 +240,8 @@ window.addEventListener("keydown", event => {
 
     if(padY2 + pads.height2 >= border.height) {
       padY2 -= pads.speed2;
-      console.log(padY2);
     }
     padY2 = padY2 + pads.speed2;
     paddle2.style.top = padY2 + "px";
-    console.log(padY2);
   }
 });
