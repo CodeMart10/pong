@@ -29,6 +29,7 @@ let pads = {
   x1: 5,
   x2: 590,
   height: 100,
+  height2: 100,
   width: 5,
   speed1: 15,
   speed2: 15
@@ -45,7 +46,20 @@ let x = border.width/2 + ball.width/2;
 let y = border.height/2 + ball.height/2;
 let padY1 = 0;
 let padY2 = 300;
-
+//extends paddles
+function one() {
+  paddle2.style.height = "150px";
+  pads.height2 = 150;
+}
+//increase ball sizes
+function two() {
+  ballDiv.style.width = "40px";
+  ballDiv.style.height = "40px";
+}
+let array = [one,two];
+window.onload = function() {
+array[0]();
+}
 
 //Clock
 let time = setInterval(movement, speed = 30);
@@ -124,13 +138,13 @@ function movement(){
           ball.xDiff *= -1;
           time = setInterval(movement, speed -= 1)
 
-          if (y + (ball.height/2) < padY2 + (pads.height/2) &&
+          if (y + (ball.height/2) < padY2 + (pads.height2/2) &&
              ball.yDiff > 0){
                 ball.yDiff *= -1;
                 console.log(ball.yDiff)
               }
 
-          if (y + (ball.height/2) > padY2 + (pads.height/2) &&
+          if (y + (ball.height/2) > padY2 + (pads.height2/2) &&
               ball.yDiff < 0){
                 ball.yDiff *= -1;
                 console.log(ball.yDiff)
@@ -205,7 +219,7 @@ window.addEventListener("keydown", event => {
 //Down for paddle 2
   if(event.key == "ArrowDown") {
 
-    if(padY2 + pads.height >= border.height) {
+    if(padY2 + pads.height2 >= border.height) {
       padY2 -= pads.speed2;
     }
     padY2 = padY2 + pads.speed2;
