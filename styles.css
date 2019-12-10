@@ -3,8 +3,11 @@
 }
 /** Border **/
 section{
-  border: 5px solid black;
-  width: 800px;
+  border-top: 5px solid black;
+  border-bottom: 5px solid black;
+  border-right: 5px solid red;
+  border-left: 5px solid blue;
+  width: 600px;
   height: 400px;
   position: relative;
 }
@@ -24,16 +27,16 @@ div{
 #paddle1, #paddle2{
   position: absolute;
   height: 100px;
-  width: 30px;
+  width: 5px;
 }
 
 #paddle1 {
   top: 0px;
-  left: 0px;
+  left: 5px;
 }
 #paddle2 {
-  top: 0px;
-  left: 770px;
+  top: 300px;
+  left: 590px;
 }
 .button{
   position: absolute;

@@ -24,29 +24,32 @@ resetbutton[0].onclick = function () {
 }
 //Paddles propeties
 let pads = {
-  x1: 0,
-  x2: 770,
+  x1: 5,
+  x2: 590,
   height: 100,
-  width: 30,
+  width: 5,
   speed1: 15,
   speed2: 15
-}
+};
 
 //Border
 const border = {
   height: 400,
-  width: 800
-}
+  width: 600
+};
 
 //Ball and paddles starting/live position
-let x = Math.floor(Math.random()*border.width);
-let y = border.height/2 + ball.height;
+let x = border.width/2 + ball.width/2;
+let y = border.height/2 + ball.height/2;
 let padY1 = 0;
-let padY2 = 0;
+let padY2 = 300;
 
 
 //Clock
-const time = setInterval(() => {
+let time = setInterval(movement, speed);
+
+function movement(){
+
   let paragraph = document.querySelector("p");
   let paragraphs = document.getElementsByClassName('player2');
   //y-axis
@@ -57,34 +60,46 @@ const time = setInterval(() => {
 
   //x-axis
   ballDiv.style.left = x + "px";
-  if (x + ball.width >= border.width || x <= 0){
-      ball.xDiff *= -1;
-       let body = document.querySelector("section");
-      if(x == border.width - ball.width) {
-        y = 200;
-        x = 407;
-        points = points + 1;
-        stringPoint = points.toString();
-        console.log(stringPoint);
+
+      if(x + ball.width >= border.width) {
+
+        y = border.height/2 + ball.height/2;
+        x = border.width/2 + ball.width/2;
+
+        clearInterval(time);
+        time = setInterval(movement, speed = 30);
+
+        points += 1;
+
         if(points == 1) {
-          paragraph.innerHTML = "Player 1 : " + stringPoint;
-        } else if(points !== 1) {
-          paragraph.firstChild.remove();
-          paragraph.innerHTML = "Player 1 :" + " " + stringPoint;
+          paragraph.innerHTML = "Player 1 : " + points;
         }
-      } else if(x == 0) {
-        y = 200;
-        x = 407;
-        points2 = points2 + 1;
-        console.log("score player one");
-        if(points2 == 1) {
-          paragraphs[0].innerHTML = "Player 2 : " + stringPoint;
-        } else if(points2 !== 1) {
-          paragraphs[0].firstChild.remove();
-          paragraphs[0].innerHTML = "Player 2 :" + " " + stringPoint;
+
+        if(points !== 1) {
+          paragraph.firstChild.remove();
+          paragraph.innerHTML = "Player 1 : " + points;
         }
       }
-  }
+
+       if(x <= 0) {
+
+         y = border.height/2 + ball.height/2;
+         x = border.width/2 + ball.width/2;
+
+        clearInterval(time);
+        time = setInterval(movement, speed = 30)
+
+        points2 = points2 + 1;
+
+        if(points2 == 1) {
+          paragraphs[0].innerHTML = "Player 2 : " + points2;
+        }
+
+        if(points2 !== 1) {
+          paragraphs[0].firstChild.remove();
+          paragraphs[0].innerHTML = "Player 2 : "  + points2;
+        }
+      }
 
   //Paddle 2
   if ((padY2 < y + ball.height) &&
@@ -94,29 +109,59 @@ const time = setInterval(() => {
           ball.yDiff *= -1;
         }
 
-        else if (x + ball.width == pads.x2){
+        if (x + ball.width >= pads.x2){
+          ballDiv.style.backgroundColor = "red"
           ball.xDiff *= -1;
+          clearInterval(time);
+          time = setInterval(movement, speed -= 1)
+
+          if (y + (ball.height/2) < padY2 + (pads.height/2) &&
+             ball.yDiff > 0){
+                ball.yDiff *= -1;
+                console.log(ball.yDiff)
+              }
+
+          if (y + (ball.height/2) > padY2 + (pads.height/2) &&
+              ball.yDiff < 0){
+                ball.yDiff *= -1;
+                console.log(ball.yDiff)
+              }
         }
   }
 
   //Paddle1
   if ((padY1 < y + ball.height) &&
-  (padY1 + pads.height >= y)){
+      (padY1 + pads.height >= y)){
 
         if (pads.x1 + pads.width > x){
               ball.yDiff *= -1;
         }
 
-        else if (pads.x1 + pads.width == x){
+        if (pads.x1 + pads.width >= x){
               ball.xDiff *= -1;
+              ballDiv.style.backgroundColor = "blue"
+              clearInterval(time);
+              time = setInterval(movement, speed -= 1)
+
+              if (y + (ball.height/2) < padY1 + (pads.height/2) &&
+                  ball.yDiff > 0){
+                    ball.yDiff *= -1;
+                  }
+
+              if (y + (ball.height/2) > padY1 + (pads.height/2) &&
+                  ball.yDiff < 0){
+                    ball.yDiff *= -1;
+                  }
         }
- }
 
-//ball slope
-y += ball.yDiff;
-x += ball.xDiff;
+  }
 
-}, ball.speed);
+  //ball slope
+  x += ball.xDiff;
+  y += ball.yDiff;
+  console.log(speed)
+
+};
 
 //Keys pressed
 window.addEventListener("keydown", event => {
