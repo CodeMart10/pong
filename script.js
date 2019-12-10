@@ -13,11 +13,11 @@ button[0].onclick = function () {
 const ball = {
   height: 15,
   width: 15,
-  xDiff: 5,
-  yDiff: 5
+  xDiff: 10,
+  yDiff: 10
 };
 
-let speed = 30;
+let speed = 100;
 
 //Paddles propeties
 let pads = {
