@@ -13,21 +13,24 @@ section{
 }
 
 /** Ball **/
-div{
+#ball {
   background-color: black;
   position: absolute;
-  top: 20px;
-  left: 200px;
+  top: 200px;
+  left: 300px;
   width: 15px;
   height: 15px;
+
 }
 
 
 /** Paddles **/
 #paddle1, #paddle2{
+  background-color: black;
   position: absolute;
   height: 100px;
   width: 5px;
+  transition: top 0.2s, left 0.2s;
 }
 
 #paddle1 {
@@ -53,4 +56,12 @@ div{
   height: 100px;
   width: 300px;
   background-color: black;
+}
+.powerUps {
+  background-color: black;
+  position: absolute;
+  top: 200px;
+  left: 300px;
+  width: 15px;
+  height: 15px;
 }

@@ -3,27 +3,39 @@ let ballDiv = document.getElementById("ball")
 let paddle1 = document.getElementById('paddle1');
 let paddle2 = document.getElementById('paddle2');
 let body = document.querySelector("section");
-let points = 0;
-let points2 = 0;
 let button = document.getElementsByClassName("button");
 let resetbutton = document.getElementsByClassName("Resetbutton");
+let paragraph = document.querySelector("p");
+let paragraphs = document.getElementsByClassName('player2');
+//score
+let points = 0;
+let points2 = 0;
+
+//reset button
 button[0].onclick = function () {
   location.reload();
 }
+
 //Ball properties
 const ball = {
   height: 15,
   width: 15,
   xDiff: 0,
   yDiff: 0,
-  speed: 1
 };
+
+let speed = 20;
+
+// Start Button (Space Bar)
 document.body.onkeyup = function(e){
-    if(e.keyCode == 32){
-      ball.xDiff = 1;
+    if(e.keyCode == 32 && ball.xDiff == 0){
+      ballDiv.style.backgroundColor == 'blue' ? ball.xDiff = 1 : ball.xDiff = -1
       ball.yDiff = 1;
+      time = setInterval(movement, speed = 20);
+
     }
 }
+
 //Paddles propeties
 let pads = {
   x1: 5,
@@ -31,8 +43,8 @@ let pads = {
   height: 100,
   height2: 100,
   width: 5,
-  speed1: 15,
-  speed2: 15
+  speed1: 25,
+  speed2: 25
 };
 
 //Border
@@ -41,15 +53,20 @@ const border = {
   width: 600
 };
 
-//Ball and paddles starting/live position
+//Ball starting/live position
 let x = border.width/2 + ball.width/2;
 let y = border.height/2 + ball.height/2;
+
+//paddles starting/live position
 let padY1 = 0;
 let padY2 = 300;
+function spawnPower() {
 //extends paddles
 function one() {
   paddle2.style.height = "150px";
   pads.height2 = 150;
+  clearInterval(time);
+  time = setInterval(movement, speed)
 }
 //increase ball sizes
 function two() {
@@ -57,16 +74,24 @@ function two() {
   ballDiv.style.height = "40px";
 }
 let array = [one,two];
-window.onload = function() {
-array[0]();
+let decider = Math.floor(Math.random()*2);
+console.log(decider);
+if(decider = 1) {
+  let powerUps = document.createElement("div");
+  powerUps.className = "powerUps";
+  body.appendChild(powerUps);
+  decider = 0;
+  console.log(decider);
+} else if(decider = 0) {
+  console.log(decider);
+  spawnPower();
 }
-
+}
+spawnPower();
 //Clock
-let time = setInterval(movement, speed = 30);
-function movement(){
+let time = setInterval(movement, speed);
 
-  let paragraph = document.querySelector("p");
-  let paragraphs = document.getElementsByClassName('player2');
+function movement() {
   //y-axis
   ballDiv.style.top = y + "px";
   if (y + ball.height >= border.height || y <= 0){
@@ -82,7 +107,6 @@ function movement(){
         x = border.width/2 + ball.width/2;
 
         clearInterval(time);
-        time = setInterval(movement, speed = 30);
 
         points += 1;
 
@@ -106,7 +130,6 @@ function movement(){
          x = border.width/2 + ball.width/2;
 
         clearInterval(time);
-        time = setInterval(movement, speed = 30)
 
         points2 = points2 + 1;
 
@@ -127,7 +150,7 @@ function movement(){
 
   //Paddle 2
   if ((padY2 < y + ball.height) &&
-      (padY2 + pads.height >= y)) {
+      (padY2 + pads.height2 >= y)) {
 
         if (x + ball.width > pads.x2){
           ball.yDiff *= -1;
@@ -141,13 +164,11 @@ function movement(){
           if (y + (ball.height/2) < padY2 + (pads.height2/2) &&
              ball.yDiff > 0){
                 ball.yDiff *= -1;
-                console.log(ball.yDiff)
               }
 
           if (y + (ball.height/2) > padY2 + (pads.height2/2) &&
               ball.yDiff < 0){
                 ball.yDiff *= -1;
-                console.log(ball.yDiff)
               }
         }
   }
@@ -181,8 +202,6 @@ function movement(){
   //ball slope
   x += ball.xDiff;
   y += ball.yDiff;
-  console.log(speed)
-
 };
 
 //Keys pressed
@@ -193,27 +212,33 @@ window.addEventListener("keydown", event => {
   if(event.key == "w") {
     if(padY1 <= 0) {
       padY1 += pads.speed1;
+      console.log(padY1);
     }
     padY1 -= pads.speed1;
     paddle1.style.top = padY1 + "px";
+    console.log(padY1);
   }
 
 //Down for paddle 1
   if(event.key == "s") {
     if(padY1 >= border.height - pads.height) {
       padY1 -= pads.speed1;
+      console.log(padY1);
     }
     padY1 += pads.speed1;
     paddle1.style.top = padY1 + "px";
+    console.log(padY1);
   }
 
 //Up for paddle 2
   if(event.key == "ArrowUp") {
     if(padY2 <= 0) {
        padY2 += pads.speed2;
+       console.log(padY2);
     }
     padY2 -= pads.speed2;
     paddle2.style.top = padY2 + "px";
+    console.log(padY2);
   }
 
 //Down for paddle 2
@@ -221,8 +246,10 @@ window.addEventListener("keydown", event => {
 
     if(padY2 + pads.height2 >= border.height) {
       padY2 -= pads.speed2;
+      console.log(padY2);
     }
     padY2 = padY2 + pads.speed2;
     paddle2.style.top = padY2 + "px";
+    console.log(padY2);
   }
 });
