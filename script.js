@@ -6,6 +6,7 @@ let body = document.querySelector("section");
 let points = 0;
 let points2 = 0;
 let button = document.getElementsByClassName("button");
+let resetbutton = document.getElementsByClassName("Resetbutton");
 button[0].onclick = function () {
   location.reload();
 }
@@ -13,12 +14,16 @@ button[0].onclick = function () {
 const ball = {
   height: 15,
   width: 15,
-  xDiff: 10,
-  yDiff: 10
+  xDiff: 0,
+  yDiff: 0,
+  speed: 1
 };
-
-let speed = 100;
-
+document.body.onkeyup = function(e){
+    if(e.keyCode == 32){
+      ball.xDiff = 1;
+      ball.yDiff = 1;
+    }
+}
 //Paddles propeties
 let pads = {
   x1: 5,
@@ -43,8 +48,7 @@ let padY2 = 300;
 
 
 //Clock
-let time = setInterval(movement, speed);
-
+let time = setInterval(movement, speed = 30);
 function movement(){
 
   let paragraph = document.querySelector("p");
@@ -70,11 +74,15 @@ function movement(){
 
         if(points == 1) {
           paragraph.innerHTML = "Player 1 : " + points;
+          ball.xDiff = 0;
+          ball.yDiff = 0;
         }
 
         if(points !== 1) {
           paragraph.firstChild.remove();
           paragraph.innerHTML = "Player 1 : " + points;
+          ball.xDiff = 0;
+          ball.yDiff = 0;
         }
       }
 
@@ -90,12 +98,17 @@ function movement(){
 
         if(points2 == 1) {
           paragraphs[0].innerHTML = "Player 2 : " + points2;
+          ball.xDiff = 0;
+          ball.yDiff = 0;
         }
 
         if(points2 !== 1) {
           paragraphs[0].firstChild.remove();
           paragraphs[0].innerHTML = "Player 2 : "  + points2;
+          ball.xDiff = 0;
+          ball.yDiff = 0;
         }
+
       }
 
   //Paddle 2
@@ -109,7 +122,6 @@ function movement(){
         if (x + ball.width >= pads.x2){
           ballDiv.style.backgroundColor = "red"
           ball.xDiff *= -1;
-          clearInterval(time);
           time = setInterval(movement, speed -= 1)
 
           if (y + (ball.height/2) < padY2 + (pads.height/2) &&
@@ -136,8 +148,7 @@ function movement(){
 
         if (pads.x1 + pads.width >= x){
               ball.xDiff *= -1;
-              ballDiv.style.backgroundColor = "blue"
-              clearInterval(time);
+              ballDiv.style.backgroundColor = "blue";
               time = setInterval(movement, speed -= 1)
 
               if (y + (ball.height/2) < padY1 + (pads.height/2) &&
