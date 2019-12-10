@@ -43,3 +43,11 @@ div{
   width: 300px;
   background-color: black;
 }
+.Resetbutton {
+  position: absolute;
+  left : 500px;
+  top : 800px;
+  height: 100px;
+  width: 300px;
+  background-color: black;
+}

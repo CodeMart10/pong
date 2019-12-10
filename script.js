@@ -6,6 +6,7 @@ let body = document.querySelector("section");
 let points = 0;
 let points2 = 0;
 let button = document.getElementsByClassName("button");
+let resetbutton = document.getElementsByClassName("Resetbutton");
 button[0].onclick = function () {
   location.reload();
 }
@@ -13,11 +14,14 @@ button[0].onclick = function () {
 const ball = {
   height: 15,
   width: 15,
-  xDiff: 1,
-  yDiff: .5,
+  xDiff: 0,
+  yDiff: 0,
   speed: 1
 };
-
+resetbutton[0].onclick = function () {
+  ball.xDiff = 1;
+  ball.yDiff = 1;
+}
 //Paddles propeties
 let pads = {
   x1: 0,
