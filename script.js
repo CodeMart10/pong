@@ -3,35 +3,48 @@ let ballDiv = document.getElementById("ball")
 let paddle1 = document.getElementById('paddle1');
 let paddle2 = document.getElementById('paddle2');
 let body = document.querySelector("section");
-let points = 0;
-let points2 = 0;
 let button = document.getElementsByClassName("button");
 let resetbutton = document.getElementsByClassName("Resetbutton");
+let paragraph = document.querySelector("p");
+let paragraphs = document.getElementsByClassName('player2');
+
+//score
+let points = 0;
+let points2 = 0;
+
+//reset button
 button[0].onclick = function () {
   location.reload();
 }
+
 //Ball properties
 const ball = {
   height: 15,
   width: 15,
   xDiff: 0,
   yDiff: 0,
-  speed: 1
 };
+
+let speed = 20;
+
+// Start Button (Space Bar)
 document.body.onkeyup = function(e){
-    if(e.keyCode == 32){
-      ball.xDiff = 1;
+    if(e.keyCode == 32 && ball.xDiff == 0){
+      ballDiv.style.backgroundColor == 'blue' ? ball.xDiff = 1 : ball.xDiff = -1
       ball.yDiff = 1;
+      time = setInterval(movement, speed = 20);
+
     }
 }
+
 //Paddles propeties
 let pads = {
   x1: 5,
   x2: 590,
   height: 100,
   width: 5,
-  speed1: 15,
-  speed2: 15
+  speed1: 30,
+  speed2: 30
 };
 
 //Border
@@ -40,19 +53,19 @@ const border = {
   width: 600
 };
 
-//Ball and paddles starting/live position
+//Ball starting/live position
 let x = border.width/2 + ball.width/2;
 let y = border.height/2 + ball.height/2;
+
+//paddles starting/live position
 let padY1 = 0;
 let padY2 = 300;
 
-
 //Clock
-let time = setInterval(movement, speed = 30);
+let time = setInterval(movement, speed);
+
 function movement(){
 
-  let paragraph = document.querySelector("p");
-  let paragraphs = document.getElementsByClassName('player2');
   //y-axis
   ballDiv.style.top = y + "px";
   if (y + ball.height >= border.height || y <= 0){
@@ -68,7 +81,6 @@ function movement(){
         x = border.width/2 + ball.width/2;
 
         clearInterval(time);
-        time = setInterval(movement, speed = 30);
 
         points += 1;
 
@@ -92,7 +104,6 @@ function movement(){
          x = border.width/2 + ball.width/2;
 
         clearInterval(time);
-        time = setInterval(movement, speed = 30)
 
         points2 = points2 + 1;
 
@@ -125,15 +136,13 @@ function movement(){
           time = setInterval(movement, speed -= 1)
 
           if (y + (ball.height/2) < padY2 + (pads.height/2) &&
-             ball.yDiff > 0){
+              ball.yDiff > 0){
                 ball.yDiff *= -1;
-                console.log(ball.yDiff)
               }
 
           if (y + (ball.height/2) > padY2 + (pads.height/2) &&
               ball.yDiff < 0){
                 ball.yDiff *= -1;
-                console.log(ball.yDiff)
               }
         }
   }
@@ -167,8 +176,6 @@ function movement(){
   //ball slope
   x += ball.xDiff;
   y += ball.yDiff;
-  console.log(speed)
-
 };
 
 //Keys pressed
