@@ -27,15 +27,20 @@ const ball = {
 
 let speed = 20;
 
+//random start
+function random(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
 // Start Button (Space Bar)
 document.body.onkeyup = function(e) {
-  if (e.keyCode == 32 && ball.xDiff == 0) {
-    ball.xDiff = ballDiv.style.backgroundColor == 'blue' ? 2 : -2;
-    ball.yDiff = 2;
-    speed = 20;
-    time = setInterval(movement, speed);
+  if (e.keyCode == 32 && ball.xDiff == 0){
+      ball.xDiff = random(2) == 0 ? 2 : -2;
+      ball.yDiff = random(2) == 0 ? 2 : -2;
+      speed = 20;
+      time = setInterval(movement, speed);
+    }
   }
-}
 
 //Paddles propeties
 let pads = {
@@ -186,7 +191,6 @@ function movement() {
 
 //Keys pressed
 window.addEventListener("keydown", event => {
-  event.preventDefault();
 
   //Up for paddle 1
   if (event.key == "w") {
@@ -208,6 +212,8 @@ window.addEventListener("keydown", event => {
 
   //Up for paddle 2
   if (event.key == "ArrowUp") {
+    event.preventDefault();
+
     if (padY2 <= 0) {
       padY2 += pads.speed2;
     }
@@ -217,6 +223,7 @@ window.addEventListener("keydown", event => {
 
   //Down for paddle 2
   if (event.key == "ArrowDown") {
+    event.preventDefault();
 
     if (padY2 + pads.height >= border.height) {
       padY2 -= pads.speed2;
