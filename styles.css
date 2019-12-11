@@ -12,14 +12,14 @@ body {
 
 h1{
   position: absolute;
-  top: 75px;
+  top: 20px;
   font-size: 3em;
   color: #F0F0F0;
 }
 
 /** Border **/
 section {
-  top: 150px;
+  top: 90px;
   border-top: 5px solid #F0F0F0;
   border-bottom: 5px solid #F0F0F0;
   border-right: 5px solid #FA2A27;
@@ -28,6 +28,7 @@ section {
   height: 600px;
   position: relative;
   background-color: #1A1E21;
+  border-radius: 5px;
 }
 
 .line{
@@ -69,6 +70,7 @@ p{
   position: absolute;
   height: 150px;
   width: 5px;
+  border-radius: 2px;
   transition: top 300ms;
 }
 
@@ -90,7 +92,7 @@ p{
   align-items: center;
   font-size: 2em;
   left: center;
-  top: 800px;
+  top: 710px;
   height: 40px;
   width: 90px;
 }
