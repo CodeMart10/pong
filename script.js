@@ -25,6 +25,7 @@ const ball = {
   yDiff: 0,
 };
 
+//ball speed
 let speed = 20;
 
 //random start
@@ -34,13 +35,13 @@ function random(max) {
 
 // Start Button (Space Bar)
 document.body.onkeyup = function(e) {
-  if (e.keyCode == 32 && ball.xDiff == 0){
-      ball.xDiff = random(2) == 0 ? 2 : -2;
-      ball.yDiff = random(2) == 0 ? 2 : -2;
-      speed = 20;
-      time = setInterval(movement, speed);
-    }
+  if (e.keyCode == 32 && ball.xDiff == 0) {
+    ball.xDiff = random(2) == 0 ? 2 : -2;
+    ball.yDiff = random(2) == 0 ? 2 : -2;
+    speed = 20;
+    time = setInterval(movement, speed);
   }
+}
 
 //Paddles propeties
 let pads = {
@@ -79,8 +80,11 @@ function movement() {
   //x-axis
   ballDiv.style.left = x + "px";
 
+  //if ball hits left red wall
   if (x + ball.width >= border.width) {
 
+    //ball position & color reset
+    ballDiv.style.backgroundColor = '#F0F0F0'
     x = border.width / 2 - ball.width / 2;
     y = border.height / 2 - ball.height / 2;
 
@@ -88,6 +92,7 @@ function movement() {
 
     points += 1;
 
+    //player 1 counter
     if (points == 1) {
       paragraph.innerHTML = "" + points;
       ball.xDiff = 0;
@@ -101,9 +106,11 @@ function movement() {
       ball.yDiff = 0;
     }
   }
-
+  //if ball hits left blue wall
   if (x <= 0) {
 
+    //ball position & color reset
+    ballDiv.style.backgroundColor = '#F0F0F0'
     x = border.width / 2 - ball.width / 2;
     y = border.height / 2 - ball.height / 2;
 
@@ -111,6 +118,7 @@ function movement() {
 
     points2 = points2 + 1;
 
+    //player 2 counter
     if (points2 == 1) {
       paragraphs[0].innerHTML = "" + points2;
       ball.xDiff = 0;
@@ -134,13 +142,13 @@ function movement() {
       ball.yDiff *= -1;
     }
 
+    //Ball hits paddle 2
     if (x + ball.width >= pads.x2) {
       ballDiv.style.backgroundColor = "#FA2A27"
       ball.xDiff *= -1;
 
       clearInterval(time)
-      time = setInterval(movement, speed -= 1)
-      console.log(speed)
+      time = setInterval(movement, speed--)
 
       if (y + (ball.height / 2) < padY2 + (pads.height / 2) &&
         ball.yDiff > 0) {
@@ -162,14 +170,13 @@ function movement() {
       ball.yDiff *= -1;
     }
 
+    //Ball hits paddle 1
     if (pads.x1 + pads.width >= x) {
       ball.xDiff *= -1;
       ballDiv.style.backgroundColor = "#384AFF";
 
-      speed -= 1;
       clearInterval(time)
-      time = setInterval(movement, speed)
-      console.log(speed)
+      time = setInterval(movement, speed--)
 
       if (y + (ball.height / 2) < padY1 + (pads.height / 2) &&
         ball.yDiff > 0) {
@@ -230,5 +237,10 @@ window.addEventListener("keydown", event => {
     }
     padY2 = padY2 + pads.speed2;
     paddle2.style.top = padY2 + "px";
+  }
+
+  //reset bound to R
+  if (event.key == 'r') {
+    location.reload();
   }
 });

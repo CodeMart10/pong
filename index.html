@@ -1,39 +1,43 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Pong</title>
-    <link rel="stylesheet" href="styles.css" type="text/css">
-    <script defer src= "script.js"></script>
-  </head>
-  <body>
-    <h1>PONG</h1>
-    <h2>by Qui and Cody</h2>
 
-    <section>
-      <p>0</p>
-      <p class = "player2">0</p>
+<head>
+  <meta charset="utf-8">
+  <title>Pong</title>
+  <link rel="stylesheet" href="styles.css" type="text/css">
+  <script defer src="script.js"></script>
+</head>
 
-      <div class="line">
+<body>
+  <h1>PONG</h1>
+  <h2>by Qui and Cody</h2>
+  <h3 class='space'>(Press space to start)</h3>
+  <h3 class='r'>(Press R to reset)</h3>
+  <section>
+    <p>0</p>
+    <p class="player2">0</p>
+
+    <div class="line">
+    </div>
+
+    <div id="ball">
+    </div>
+
+    <div id="paddle2">
+      <div class='white'>
       </div>
 
-      <div id="ball">
+    </div>
+    <div id="paddle1">
+      <div class='white'>
       </div>
-
-      <div id="paddle2">
-        <div class= 'white'>
-        </div>
-
-      </div>
-      <div id="paddle1">
-        <div class= 'white'>
-        </div>
-      </div>
+    </div>
 
 
 
-    </section>
+  </section>
 
-      <div class = "button"> Reset </div>
-  </body>
+  <div class="button"> Reset </div>
+</body>
+
 </html>
