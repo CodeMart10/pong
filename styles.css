@@ -2,82 +2,102 @@
   box-sizing: content-box;
   margin: 0;
 }
+
 body {
+  align-items: center;
+  background-color: #1A1E21;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  background-color: #1A1E21;
 }
 
-h1{
+h1 {
+  color: #F0F0F0;
+  font-size: 3.5em;
   position: absolute;
   top: 7px;
-  font-size: 3.5em;
-  color: #F0F0F0;
 }
-h2{
+
+h2 {
+  color: #F0F0F0;
+  font-size: .9em;
   position: absolute;
   top: 60px;
-  font-size: .9em;
+}
+
+.space {
   color: #F0F0F0;
+  font-size: 1em;
+  left: 65%;
+  position: absolute;
+  top: 40px;
+}
+
+.r {
+  color: #F0F0F0;
+  font-size: 1em;
+  left: 65%;
+  position: absolute;
+  top: 60px;
 }
 
 /** Border **/
 section {
-  top: 90px;
-  border-top: 5px solid #F0F0F0;
+  background-color: #1A1E21;
   border-bottom: 5px solid #F0F0F0;
-  border-right: 5px solid #FA2A27;
   border-left: 5px solid #384AFF;
-  width: 1000px;
+  border-radius: 5px;
+  border-right: 5px solid #FA2A27;
+  border-top: 5px solid #F0F0F0;
+  box-shadow: 5px 3px 15px black;
   height: 600px;
   position: relative;
-  background-color: #1A1E21;
-  border-radius: 5px;
+  top: 90px;
+  width: 1000px;
 }
 
-.line{
-  position: absolute;
+.line {
   border: 2px dashed #F0F0F0;
   height: 600px;
   left: 498px;
-
+  position: absolute;
 }
 
-p{
-  position: absolute;
+p {
+  color: white;
+  font-size: 7em;
   left: 220px;
-  top: 120px;
-  font-size: 7em;
-  color: white;
-}
-.player2{
   position: absolute;
-  left: 750px;
   top: 120px;
-  font-size: 7em;
-  color: white;
+}
 
+.player2 {
+  color: white;
+  font-size: 7em;
+  left: 750px;
+  position: absolute;
+  top: 120px;
 }
 
 /** Ball **/
 #ball {
+  background-color: #F0F0F0;
+  box-shadow: 1px 1px 5px black;
+  height: 20px;
   position: absolute;
   width: 20px;
-  height: 20px;
-  background-color: #F0F0F0;
 }
 
 /** Paddles **/
 #paddle1, #paddle2 {
   background-color: #F0F0F0;
-  display: flex;
-  position: absolute;
-  height: 150px;
-  width: 5px;
   border-radius: 2px;
+  box-shadow: 2px 2px 5px black;
+  display: flex;
+  height: 150px;
+  position: absolute;
   transition: top 300ms;
+  width: 5px;
 }
 
 #paddle1 {
@@ -85,23 +105,28 @@ p{
 }
 
 #paddle2 {
-  top: 450px;
   left: 990px;
+  top: 450px;
+}
+
+.white{
+  border: 1px solid black;
 }
 
 .button {
-  position: absolute;
+  align-items: center;
   color: #F0F0F0;
   display: flex;
-  justify-content: center;
-  align-items: center;
   font-size: 2em;
-  left: center;
-  top: 710px;
   height: 40px;
+  justify-content: center;
+  left: center;
+  position: absolute;
+  top: 710px;
   width: 90px;
 }
-.button:hover{
+
+.button:hover {
   cursor: pointer;
 }
 .powerUps {

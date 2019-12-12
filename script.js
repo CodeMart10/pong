@@ -27,6 +27,8 @@ const ball = {
   xDiff: 0,
   yDiff: 0,
 };
+
+//ball speed
 let speed = 20;
 
 //random start
@@ -145,7 +147,9 @@ function movement() {
   //x-axis
   ballDiv.style.left = x + "px";
 
+  //if ball hits left red wall
   if (x + ball.width >= border.width) {
+<<<<<<< HEAD
     paddle2.style.height = "150px";
     pads.height2 = 150;
     paddle1.style.height = "150px";
@@ -154,6 +158,11 @@ function movement() {
     ballDiv.style.width = "20px";
     ball.width = 20;
     ball.height = 20;
+=======
+
+    //ball position & color reset
+    ballDiv.style.backgroundColor = '#F0F0F0'
+>>>>>>> db5a4e08cafaad16adb8b1c8efe2c5e59ce4dd3b
     x = border.width / 2 - ball.width / 2;
     y = border.height / 2 - ball.height / 2;
 
@@ -161,6 +170,7 @@ function movement() {
 
     points += 1;
 
+    //player 1 counter
     if (points == 1) {
       paragraph.innerHTML = "" + points;
       ball.xDiff = 0;
@@ -174,7 +184,7 @@ function movement() {
       ball.yDiff = 0;
     }
   }
-
+  //if ball hits left blue wall
   if (x <= 0) {
     paddle2.style.height = "150px";
     pads.height2 = 150;
@@ -191,6 +201,7 @@ function movement() {
 
     points2 = points2 + 1;
 
+    //player 2 counter
     if (points2 == 1) {
       paragraphs[0].innerHTML = "" + points2;
       ball.xDiff = 0;
@@ -214,12 +225,13 @@ function movement() {
       ball.yDiff *= -1;
     }
 
+    //Ball hits paddle 2
     if (x + ball.width >= pads.x2) {
       ballDiv.style.backgroundColor = "#FA2A27"
       ball.xDiff *= -1;
 
-      clearInterval(time);
-      time = setInterval(movement, speed -= 1)
+      clearInterval(time)
+      time = setInterval(movement, speed--)
 
       if (y + (ball.height / 2) < padY2 + (pads.height2 / 2) &&
         ball.yDiff > 0) {
@@ -241,12 +253,13 @@ function movement() {
       ball.yDiff *= -1;
     }
 
+    //Ball hits paddle 1
     if (pads.x1 + pads.width >= x) {
       ball.xDiff *= -1;
       ballDiv.style.backgroundColor = "#384AFF";
 
-      clearInterval(time);
-      time = setInterval(movement, speed -= 1)
+      clearInterval(time)
+      time = setInterval(movement, speed--)
 
       if (y + (ball.height / 2) < padY1 + (pads.height / 2) &&
         ball.yDiff > 0) {
@@ -307,5 +320,10 @@ window.addEventListener("keydown", event => {
     }
     padY2 = padY2 + pads.speed2;
     paddle2.style.top = padY2 + "px";
+  }
+
+  //reset bound to R
+  if (event.key == 'r') {
+    location.reload();
   }
 });
