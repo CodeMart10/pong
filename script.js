@@ -17,6 +17,18 @@ let points2 = 0;
 
 //reset button
 button[0].onclick = function() {
+  ball.xDiff = random(2) == 0 ? 2 : -2;
+  ball.yDiff = random(2) == 0 ? 2 : -2;
+  speed = 20;
+  paddle2.style.height = "150px";
+  pads.height2 = 150;
+  paddle1.style.height = "150px";
+  pads.height1 = 150;
+  ballDiv.style.height = "20px";
+  ballDiv.style.width = "20px";
+  ball.width = 20;
+  ball.height = 20;
+  console.log(pads.height);
   location.reload();
 }
 
@@ -45,11 +57,12 @@ document.body.onkeyup = function(e) {
     paddle2.style.height = "150px";
     pads.height2 = 150;
     paddle1.style.height = "150px";
-    pads.height1 = 150;
+    pads.height = 150;
     ballDiv.style.height = "20px";
     ballDiv.style.width = "20px";
     ball.width = 20;
     ball.height = 20;
+    console.log(pads.height);
     time = setInterval(movement, speed);
     spawnPower();
   }
@@ -94,26 +107,30 @@ function spawnPower(a) {
       clearInterval(time);
       time = setInterval(movement, speed)
   }
+  function three() {
+    if(ball.xDiff > 0) {
+      paddle1.style.height = "200px";
+      pads.height = 200;
+    } else if(ball.xDiff < 0) {
+      paddle2.style.height = "200px";
+      pads.height2 = 200;
+    }
+      clearInterval(time);
+      time = setInterval(movement, speed)
+  }
+  let random = Math.floor(Math.random() * 3);
   let decider = Math.floor(Math.random() * 2);
   let yaxis = Math.floor(Math.random() * 400);
   function two() {
-    if(decider == 0) {
     ballDiv.style.width = "5px";
     ballDiv.style.height = "5px";
     ball.width = 5;
     ball.height = 5;
     console.log(decider);
-  } else if(decider == 1) {
-    ballDiv.style.width = "100px";
-    ballDiv.style.height = "100px";
-    ball.width = 100;
-    ball.height = 100;
-    console.log(decider);
   }
-  }
-  let array = [one, two];
+  let array = [one, two, three];
   if (a == 1) {
-    array[decider]();
+    array[random]();
   }
   if (decider = 1) {
     powerUps.style.left = "500px";
@@ -129,7 +146,7 @@ let time = setInterval(movement, speed);
 
 function movement() {
   if (ball.width + x > 500 && powerUps.parentElement == body) {
-    if (x < 500 + 50) {
+    if (x < 500 + 100) {
       if (y + ball.height > powerUps.offsetTop + 10) {
         if (powerUps.offsetTop + 60 >= y) {
           body.removeChild(powerUps);
@@ -149,20 +166,14 @@ function movement() {
 
   //if ball hits left red wall
   if (x + ball.width >= border.width) {
-<<<<<<< HEAD
     paddle2.style.height = "150px";
     pads.height2 = 150;
     paddle1.style.height = "150px";
-    pads.height1 = 150;
+    pads.height = 150;
     ballDiv.style.height = "20px";
     ballDiv.style.width = "20px";
     ball.width = 20;
     ball.height = 20;
-=======
-
-    //ball position & color reset
-    ballDiv.style.backgroundColor = '#F0F0F0'
->>>>>>> db5a4e08cafaad16adb8b1c8efe2c5e59ce4dd3b
     x = border.width / 2 - ball.width / 2;
     y = border.height / 2 - ball.height / 2;
 
@@ -189,7 +200,7 @@ function movement() {
     paddle2.style.height = "150px";
     pads.height2 = 150;
     paddle1.style.height = "150px";
-    pads.height1 = 150;
+    pads.height = 150;
     ballDiv.style.height = "20px";
     ballDiv.style.width = "20px";
     ball.width = 20;
