@@ -45,7 +45,7 @@ document.body.onkeyup = function(e) {
     paddle2.style.height = "150px";
     pads.height2 = 150;
     paddle1.style.height = "150px";
-    pads.height1 = 150;
+    pads.height = 150;
     ballDiv.style.height = "20px";
     ballDiv.style.width = "20px";
     ball.width = 20;
@@ -81,7 +81,11 @@ let padY1 = 0;
 let padY2 = 450;
 
 function spawnPower(a) {
+
+  let decider = Math.floor(Math.random() * 2);
+  let yaxis = Math.floor(Math.random() * 400);
   let random_position_y = Math.floor(Math.random() * 300);
+
   //extends paddles
   function one() {
     if(ball.xDiff > 0) {
@@ -94,21 +98,19 @@ function spawnPower(a) {
       clearInterval(time);
       time = setInterval(movement, speed)
   }
-  let decider = Math.floor(Math.random() * 2);
-  let yaxis = Math.floor(Math.random() * 400);
+
   function two() {
-    if(decider == 0) {
+  if(decider == 0) {
     ballDiv.style.width = "5px";
     ballDiv.style.height = "5px";
     ball.width = 5;
     ball.height = 5;
-    console.log(decider);
-  } else if(decider == 1) {
+  }
+   if(decider == 1) {
     ballDiv.style.width = "100px";
     ballDiv.style.height = "100px";
     ball.width = 100;
     ball.height = 100;
-    console.log(decider);
   }
   }
   let array = [one, two];
@@ -116,7 +118,7 @@ function spawnPower(a) {
     array[decider]();
   }
   if (decider = 1) {
-    powerUps.style.left = "500px";
+    powerUps.style.left = "475px";
     powerUps.style.top = yaxis + "px";
     body.appendChild(powerUps);
     decider = 0;
@@ -149,7 +151,6 @@ function movement() {
 
   //if ball hits left red wall
   if (x + ball.width >= border.width) {
-<<<<<<< HEAD
     paddle2.style.height = "150px";
     pads.height2 = 150;
     paddle1.style.height = "150px";
@@ -158,11 +159,9 @@ function movement() {
     ballDiv.style.width = "20px";
     ball.width = 20;
     ball.height = 20;
-=======
 
     //ball position & color reset
     ballDiv.style.backgroundColor = '#F0F0F0'
->>>>>>> db5a4e08cafaad16adb8b1c8efe2c5e59ce4dd3b
     x = border.width / 2 - ball.width / 2;
     y = border.height / 2 - ball.height / 2;
 
