@@ -94,7 +94,11 @@ let padY1 = 0;
 let padY2 = 450;
 
 function spawnPower(a) {
+
+  let decider = Math.floor(Math.random() * 2);
+  let yaxis = Math.floor(Math.random() * 400);
   let random_position_y = Math.floor(Math.random() * 300);
+
   //extends paddles
   function one() {
     if(ball.xDiff > 0) {
@@ -118,22 +122,30 @@ function spawnPower(a) {
       clearInterval(time);
       time = setInterval(movement, speed)
   }
-  let random = Math.floor(Math.random() * 3);
-  let decider = Math.floor(Math.random() * 2);
-  let yaxis = Math.floor(Math.random() * 400);
+  function four() {
+    if(ball.xDiff > 0) {
+      paddle2.style.height = "100px";
+      pads.height2 = 100;
+    } else if(ball.xDiff < 0) {
+      paddle1.style.height = "100px";
+      pads.height = 100;
+    }
+      clearInterval(time);
+      time = setInterval(movement, speed)
+  }
   function two() {
     ballDiv.style.width = "5px";
     ballDiv.style.height = "5px";
     ball.width = 5;
     ball.height = 5;
-    console.log(decider);
   }
-  let array = [one, two, three];
+  let random = Math.floor(Math.random() * 4);
+  let array = [one, two, three,four];
   if (a == 1) {
     array[random]();
   }
   if (decider = 1) {
-    powerUps.style.left = "500px";
+    powerUps.style.left = "475px";
     powerUps.style.top = yaxis + "px";
     body.appendChild(powerUps);
     decider = 0;
@@ -146,7 +158,7 @@ let time = setInterval(movement, speed);
 
 function movement() {
   if (ball.width + x > 500 && powerUps.parentElement == body) {
-    if (x < 500 + 100) {
+    if (x < 500 + 50) {
       if (y + ball.height > powerUps.offsetTop + 10) {
         if (powerUps.offsetTop + 60 >= y) {
           body.removeChild(powerUps);
@@ -174,6 +186,9 @@ function movement() {
     ballDiv.style.width = "20px";
     ball.width = 20;
     ball.height = 20;
+
+    //ball position & color reset
+    ballDiv.style.backgroundColor = '#F0F0F0'
     x = border.width / 2 - ball.width / 2;
     y = border.height / 2 - ball.height / 2;
 
