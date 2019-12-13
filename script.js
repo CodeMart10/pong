@@ -134,10 +134,10 @@ function spawnPower(a) {
       time = setInterval(movement, speed)
   }
   function two() {
-    ballDiv.style.width = "5px";
-    ballDiv.style.height = "5px";
-    ball.width = 5;
-    ball.height = 5;
+    ballDiv.style.width = "10px";
+    ballDiv.style.height = "10px";
+    ball.width = 10;
+    ball.height = 10;
   }
   let random = Math.floor(Math.random() * 4);
   let array = [one, two, three,four];
@@ -160,7 +160,7 @@ function movement() {
   if (ball.width + x > 500 && powerUps.parentElement == body) {
     if (x < 500 + 50) {
       if (y + ball.height > powerUps.offsetTop + 10) {
-        if (powerUps.offsetTop + 60 >= y) {
+        if (powerUps.offsetTop + 60 >= y + ball.width) {
           body.removeChild(powerUps);
           spawnPower(1);
         }
