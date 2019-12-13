@@ -157,7 +157,7 @@ function spawnPower(a) {
 let time = setInterval(movement, speed);
 
 function movement() {
-  if (ball.width + x > 500|| ball.width + x < 500  && powerUps.parentElement == body) {
+  if (ball.width + x >= 500 && powerUps.parentElement == body) {
     if (x < 500 + 50) {
       if (y + ball.height > powerUps.offsetTop + 10) {
         if (powerUps.offsetTop + 60 >= y ) {
